@@ -1,55 +1,67 @@
 import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
+import { Music, Heart } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
-    <div className='min-h-screen bg-gray-100 flex flex-col items-center justify-center p-8'>
+    <div className='min-h-screen bg-background flex flex-col items-center justify-center p-8'>
       <div className='flex gap-8 mb-8'>
-        <a
-          href='https://vite.dev'
-          target='_blank'
-          className='hover:opacity-80 transition-opacity'
-        >
-          <img src={viteLogo} className='h-16 w-16' alt='Vite logo' />
-        </a>
-        <a
-          href='https://react.dev'
-          target='_blank'
-          className='hover:opacity-80 transition-opacity'
-        >
-          <img
-            src={reactLogo}
-            className='h-16 w-16 animate-spin'
-            alt='React logo'
-          />
-        </a>
+        <div className='flex items-center gap-2 text-muted-foreground'>
+          <Music className='h-8 w-8' />
+          <span className='text-lg font-medium'>Chords App</span>
+        </div>
       </div>
 
-      <h1 className='text-4xl font-bold text-gray-800 mb-8'>Chords App</h1>
+      <Card className='w-full max-w-md'>
+        <CardHeader className='text-center'>
+          <CardTitle className='flex items-center justify-center gap-2'>
+            <Heart className='h-6 w-6 text-red-500' />
+            You Are My Sunshine
+          </CardTitle>
+          <CardDescription>
+            A beautiful song with chords and lyrics
+          </CardDescription>
+        </CardHeader>
 
-      <div className='bg-white rounded-lg shadow-lg p-8 max-w-md w-full'>
-        <button
-          onClick={() => setCount(count => count + 1)}
-          className='bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors mb-4 w-full'
-        >
-          Count is {count}
-        </button>
+        <CardContent className='space-y-4'>
+          <div className='text-center'>
+            <p className='text-sm text-muted-foreground mb-2'>
+              Interactive Demo
+            </p>
+            <Button
+              onClick={() => setCount(count => count + 1)}
+              className='w-full'
+            >
+              Count is {count}
+            </Button>
+          </div>
 
-        <p className='text-gray-600 text-center'>
-          Edit{' '}
-          <code className='bg-gray-100 px-2 py-1 rounded text-sm'>
-            src/App.tsx
-          </code>{' '}
-          and save to test HMR
+          <div className='text-center text-sm text-muted-foreground'>
+            <p>
+              Edit{' '}
+              <code className='bg-muted px-2 py-1 rounded text-xs'>
+                src/App.tsx
+              </code>{' '}
+              and save to test HMR
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+
+      <div className='mt-8 text-center'>
+        <p className='text-sm text-muted-foreground'>
+          Built with React, TypeScript, Tailwind CSS, and Shadcn UI
         </p>
       </div>
-
-      <p className='text-gray-500 text-sm mt-8 text-center'>
-        Click on the Vite and React logos to learn more
-      </p>
     </div>
   );
 }
