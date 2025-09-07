@@ -1,6 +1,7 @@
-import { createFileRoute, useNavigate } from '@tanstack/react-router';
-import { Search } from 'lucide-react';
+import { createFileRoute, useNavigate, Link } from '@tanstack/react-router';
+import { Search, Music, Edit } from 'lucide-react';
 import { SongList } from '@/components/SongList';
+import { Button } from '@/components/ui/button';
 import type { Song } from '@/types/song';
 import songsData from '@/data/songs.json';
 import { useState } from 'react';
@@ -19,6 +20,28 @@ function Index() {
 
   return (
     <div>
+      {/* Header */}
+      <div className='text-center mb-8'>
+        <Link
+          to='/'
+          className='flex items-center justify-center gap-3 mb-4 no-underline'
+        >
+          <div className='p-3 bg-primary/10 rounded-xl'>
+            <Music className='h-8 w-8 text-primary' />
+          </div>
+          <h1 className='text-4xl font-bold text-foreground'>Chords App</h1>
+        </Link>
+        <p className='text-lg text-muted-foreground max-w-2xl mx-auto mb-6'>
+          Discover and play your favorite songs with chords and lyrics.
+        </p>
+        <Link to='/editor'>
+          <Button variant='outline'>
+            <Edit className='h-4 w-4 mr-2' />
+            Song Editor
+          </Button>
+        </Link>
+      </div>
+
       {/* Search Bar */}
       <div className='max-w-md mx-auto mb-8'>
         <div className='relative'>
@@ -37,6 +60,11 @@ function Index() {
           Available Songs ({songs.length})
         </h2>
         <SongList songs={songs} onSongSelect={handleSongSelect} />
+      </div>
+
+      {/* Footer */}
+      <div className='text-center text-sm text-muted-foreground mt-12'>
+        <p>Built with React, TypeScript, Tailwind CSS, and Shadcn UI</p>
       </div>
     </div>
   );
