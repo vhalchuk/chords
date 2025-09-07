@@ -187,6 +187,18 @@ The project is now ready for:
 - **Failure Handling**: If linting/formatting fails, fix issues before committing
 - **Quality Gate**: No commits should be made with linting errors or formatting issues
 
+## TypeScript Import Guidelines
+
+- **Type-only Imports**: Always use `import type` for importing TypeScript interfaces and types
+  - Example: `import type { Song } from '@/types/song'`
+  - This ensures types are only imported at compile time and not included in runtime bundles
+  - Improves build performance and follows TypeScript best practices
+- **Regular Imports**: Use regular `import` for runtime values (components, functions, constants)
+  - Example: `import { Button } from '@/components/ui/button'`
+- **Mixed Imports**: When importing both types and runtime values, separate them:
+  - `import type { Song } from '@/types/song'`
+  - `import { SongCard } from '@/components/SongCard'`
+
 ## Song Data Format
 
 ### Structure
