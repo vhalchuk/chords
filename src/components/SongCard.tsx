@@ -6,7 +6,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import type { Song } from '@/types/song';
 
 interface SongCardProps {
@@ -19,8 +18,22 @@ export function SongCard({ song, onSelect }: SongCardProps) {
     onSelect?.(song);
   };
 
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      handleClick();
+    }
+  };
+
   return (
-    <Card className='hover:shadow-lg transition-shadow cursor-pointer'>
+    <Card
+      className='hover:shadow-lg transition-shadow cursor-pointer focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2'
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+      role='button'
+      aria-label={`View song: ${song.title} by ${song.artist}`}
+    >
       <CardHeader className='pb-3'>
         <div className='flex items-start gap-3'>
           <div className='p-2 bg-primary/10 rounded-lg'>
@@ -39,14 +52,8 @@ export function SongCard({ song, onSelect }: SongCardProps) {
       </CardHeader>
 
       <CardContent className='pt-0'>
-        <div className='space-y-3'>
-          <div className='text-sm text-muted-foreground line-clamp-2'>
-            {song.lyrics.split('\n')[0]}...
-          </div>
-
-          <Button onClick={handleClick} className='w-full' size='sm'>
-            View Song
-          </Button>
+        <div className='text-sm text-muted-foreground line-clamp-2'>
+          {song.lyrics.split('\n')[0]}...
         </div>
       </CardContent>
     </Card>
