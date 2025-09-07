@@ -156,28 +156,6 @@ function SongDetail() {
           <div className='flex flex-col gap-3'>
             {/* First Row - Main Controls */}
             <div className='flex items-center gap-3 sm:gap-6'>
-              {/* Font Size Controls */}
-              <div className='flex items-center'>
-                <Button
-                  onClick={decreaseFontSize}
-                  variant='outline'
-                  size='sm'
-                  disabled={fontSize <= 10}
-                  className='rounded-r-none border-r-0'
-                >
-                  <AArrowDown className='h-5 w-5' />
-                </Button>
-                <Button
-                  onClick={increaseFontSize}
-                  variant='outline'
-                  size='sm'
-                  disabled={fontSize >= 24}
-                  className='rounded-l-none'
-                >
-                  <AArrowUp className='h-7 w-7' />
-                </Button>
-              </div>
-
               {/* Transposition Controls - Only show when chords are visible */}
               {showChords && (
                 <div className='flex items-center'>
@@ -208,6 +186,28 @@ function SongDetail() {
                   </Button>
                 </div>
               )}
+
+              {/* Font Size Controls */}
+              <div className='flex items-center'>
+                <Button
+                  onClick={decreaseFontSize}
+                  variant='outline'
+                  size='sm'
+                  disabled={fontSize <= 10}
+                  className='rounded-r-none border-r-0'
+                >
+                  <AArrowDown className='h-5 w-5' />
+                </Button>
+                <Button
+                  onClick={increaseFontSize}
+                  variant='outline'
+                  size='sm'
+                  disabled={fontSize >= 24}
+                  className='rounded-l-none'
+                >
+                  <AArrowUp className='h-7 w-7' />
+                </Button>
+              </div>
 
               {/* Expand Button */}
               <Button
