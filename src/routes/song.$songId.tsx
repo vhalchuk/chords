@@ -13,6 +13,7 @@ import {
   ListMusic,
   ChevronDown,
   ChevronUp,
+  Edit,
 } from 'lucide-react';
 import type { Song } from '@/types/song';
 import songsData from '@/data/songs.json';
@@ -288,6 +289,20 @@ function SongDetail() {
 
         <div className='leading-relaxed' style={{ fontSize: `${fontSize}px` }}>
           {parsedLyrics}
+        </div>
+
+        {/* Editor Button */}
+        <div className='mt-8 pt-6 border-t'>
+          <div className='flex justify-center'>
+            <Button
+              onClick={() => navigate({ to: '/editor' })}
+              variant='outline'
+              className='flex items-center gap-2'
+            >
+              <Edit className='h-4 w-4' />
+              Edit Song
+            </Button>
+          </div>
         </div>
       </div>
     </div>

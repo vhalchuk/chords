@@ -31,15 +31,9 @@ function Index() {
           </div>
           <h1 className='text-4xl font-bold text-foreground'>Chords App</h1>
         </Link>
-        <p className='text-lg text-muted-foreground max-w-2xl mx-auto mb-6'>
+        <p className='text-lg text-muted-foreground max-w-2xl mx-auto'>
           Discover and play your favorite songs with chords and lyrics.
         </p>
-        <Link to='/editor'>
-          <Button variant='outline'>
-            <Edit className='h-4 w-4 mr-2' />
-            Song Editor
-          </Button>
-        </Link>
       </div>
 
       {/* Search Bar */}
@@ -63,7 +57,15 @@ function Index() {
       </div>
 
       {/* Footer */}
-      <div className='text-center text-sm text-muted-foreground mt-12'>
+      <div className='text-center text-sm text-muted-foreground mt-12 space-y-4'>
+        <div>
+          <Link to='/editor'>
+            <Button variant='outline' size='sm'>
+              <Edit className='h-4 w-4 mr-2' />
+              Song Editor
+            </Button>
+          </Link>
+        </div>
         <p>Built with React, TypeScript, Tailwind CSS, and Shadcn UI</p>
       </div>
     </div>
