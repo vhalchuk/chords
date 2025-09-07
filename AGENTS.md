@@ -144,6 +144,43 @@ The project is now ready for:
 - **Failure Handling**: If linting/formatting fails, fix issues before committing
 - **Quality Gate**: No commits should be made with linting errors or formatting issues
 
+## Song Data Format
+
+### Structure
+
+```typescript
+interface Song {
+  id: string; // Unique identifier
+  title: string; // Song title
+  artist: string; // Artist name
+  lyrics: string; // Lyrics with inline chords
+}
+```
+
+### Chord Notation
+
+- **Format**: Square brackets `[C]` around chord names
+- **Placement**: Chords appear before the word they apply to
+- **Examples**: `[C]`, `[Am]`, `[F]`, `[G]`, `[Dm]`
+
+### Example Song
+
+```json
+{
+  "id": "you-are-my-sunshine",
+  "title": "You Are My Sunshine",
+  "artist": "Traditional",
+  "lyrics": "[C]You are my sunshine, my only sunshine\n[C]You make me happy when [G]skies are [C]gray..."
+}
+```
+
+### Implementation Notes
+
+- Songs stored in `src/data/songs.json`
+- Simple format for easy parsing and display
+- Chords can be extracted using regex: `/\[([^\]]+)\]/g`
+- Lyrics can be split by newlines for line-by-line display
+
 ## Future Considerations
 
 - Will need to decide on React setup method (Create React App, Vite, etc.)
