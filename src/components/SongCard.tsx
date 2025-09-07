@@ -1,12 +1,10 @@
 import { Music, User } from 'lucide-react';
 import {
   Card,
-  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { parseLyricsWithChords } from '@/lib/chordParser';
 import type { Song } from '@/types/song';
 
 interface SongCardProps {
@@ -26,9 +24,6 @@ export function SongCard({ song, onSelect }: SongCardProps) {
     }
   };
 
-  // Get first line of lyrics for preview
-  const firstLine = song.lyrics.split('\n')[0];
-
   return (
     <Card
       className='hover:shadow-lg transition-shadow cursor-pointer focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2'
@@ -38,7 +33,7 @@ export function SongCard({ song, onSelect }: SongCardProps) {
       role='button'
       aria-label={`View song: ${song.title} by ${song.artist}`}
     >
-      <CardHeader className='pb-3'>
+      <CardHeader>
         <div className='flex items-start gap-3'>
           <div className='p-2 bg-primary/10 rounded-lg'>
             <Music className='h-5 w-5 text-primary' />
@@ -54,12 +49,6 @@ export function SongCard({ song, onSelect }: SongCardProps) {
           </div>
         </div>
       </CardHeader>
-
-      <CardContent className='pt-0'>
-        <div className='text-sm text-muted-foreground line-clamp-2'>
-          {parseLyricsWithChords(firstLine)}...
-        </div>
-      </CardContent>
     </Card>
   );
 }
