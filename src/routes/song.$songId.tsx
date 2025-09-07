@@ -11,6 +11,7 @@ import {
   AArrowUp,
   LetterText,
   ListMusic,
+  MoreHorizontal,
 } from 'lucide-react';
 import type { Song } from '@/types/song';
 import songsData from '@/data/songs.json';
@@ -45,6 +46,8 @@ function SongDetail() {
     return saved ? saved === 'true' : true;
   });
 
+  const [showSettings, setShowSettings] = useState(false);
+
   // Save font size to localStorage whenever it changes
   useEffect(() => {
     localStorage.setItem('chords-font-size', fontSize.toString());
@@ -62,6 +65,21 @@ function SongDetail() {
   useEffect(() => {
     localStorage.setItem('chords-visibility', showChords.toString());
   }, [showChords]);
+
+  // Close settings dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Element;
+      if (showSettings && !target.closest('.settings-dropdown')) {
+        setShowSettings(false);
+      }
+    };
+
+    if (showSettings) {
+      document.addEventListener('click', handleClickOutside);
+      return () => document.removeEventListener('click', handleClickOutside);
+    }
+  }, [showSettings]);
 
   const song = useMemo(() => {
     return songsData.find((s: Song) => s.id === songId);
@@ -180,26 +198,59 @@ function SongDetail() {
               </Button>
             </div>
 
-            {/* Chord Visibility Toggle */}
-            <div className='flex items-center'>
+            {/* Settings Dropdown */}
+            <div className='relative settings-dropdown'>
               <Button
-                onClick={() => setShowChords(false)}
-                variant={!showChords ? 'default' : 'outline'}
+                onClick={e => {
+                  e.stopPropagation();
+                  setShowSettings(!showSettings);
+                }}
+                variant='outline'
                 size='sm'
-                className='rounded-r-none border-r-0'
-                title='Show lyrics only'
+                title='Settings'
               >
-                <LetterText className='h-4 w-4' />
+                <MoreHorizontal className='h-4 w-4' />
               </Button>
-              <Button
-                onClick={() => setShowChords(true)}
-                variant={showChords ? 'default' : 'outline'}
-                size='sm'
-                className='rounded-l-none'
-                title='Show lyrics with chords'
-              >
-                <ListMusic className='h-4 w-4' />
-              </Button>
+
+              {showSettings && (
+                <div className='absolute right-0 top-full mt-1 bg-background border border-border rounded-md shadow-lg z-10 min-w-48'>
+                  <div className='p-2'>
+                    <div className='text-sm font-medium text-foreground mb-2'>
+                      Display Options
+                    </div>
+                    <div className='space-y-1'>
+                      <button
+                        onClick={() => {
+                          setShowChords(false);
+                          setShowSettings(false);
+                        }}
+                        className={`w-full text-left px-2 py-1 rounded text-sm flex items-center gap-2 ${
+                          !showChords
+                            ? 'bg-primary text-primary-foreground'
+                            : 'hover:bg-muted'
+                        }`}
+                      >
+                        <LetterText className='h-4 w-4' />
+                        Lyrics Only
+                      </button>
+                      <button
+                        onClick={() => {
+                          setShowChords(true);
+                          setShowSettings(false);
+                        }}
+                        className={`w-full text-left px-2 py-1 rounded text-sm flex items-center gap-2 ${
+                          showChords
+                            ? 'bg-primary text-primary-foreground'
+                            : 'hover:bg-muted'
+                        }`}
+                      >
+                        <ListMusic className='h-4 w-4' />
+                        Lyrics with Chords
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
