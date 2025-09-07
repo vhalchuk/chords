@@ -71,22 +71,10 @@ function Editor() {
     <div className='max-w-7xl mx-auto p-6'>
       {/* Header */}
       <div className='mb-6'>
-        <div className='flex items-center justify-between mb-4'>
+        <div className='flex items-center justify-start mb-4'>
           <Button onClick={handleBackToHome} variant='outline'>
             <ArrowLeft className='h-4 w-4' />
             <span className='hidden sm:inline ml-2'>Back to Songs</span>
-          </Button>
-          <Button
-            onClick={handleClearAll}
-            variant={isCleared ? 'default' : 'outline'}
-            size='sm'
-          >
-            {isCleared ? (
-              <Check className='h-4 w-4 mr-2' />
-            ) : (
-              <Trash2 className='h-4 w-4 mr-2' />
-            )}
-            {isCleared ? 'Cleared!' : 'Clear All'}
           </Button>
         </div>
 
@@ -99,7 +87,21 @@ function Editor() {
         {/* Left Column - Form */}
         <Card>
           <CardHeader>
-            <CardTitle>Song Details</CardTitle>
+            <div className='flex items-center justify-between'>
+              <CardTitle>Song Details</CardTitle>
+              <Button
+                onClick={handleClearAll}
+                variant={isCleared ? 'default' : 'outline'}
+                size='sm'
+              >
+                {isCleared ? (
+                  <Check className='h-4 w-4 mr-2' />
+                ) : (
+                  <Trash2 className='h-4 w-4 mr-2' />
+                )}
+                {isCleared ? 'Cleared!' : 'Clear All'}
+              </Button>
+            </div>
           </CardHeader>
           <CardContent className='space-y-4'>
             <div>
