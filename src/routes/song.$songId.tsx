@@ -178,34 +178,36 @@ function SongDetail() {
                 </Button>
               </div>
 
-              {/* Transposition Controls */}
-              <div className='flex items-center'>
-                <Button
-                  onClick={decreaseTransposition}
-                  variant='outline'
-                  size='sm'
-                  disabled={transpositionSemitones <= -12}
-                  className='rounded-r-none'
-                >
-                  <Minus className='h-4 w-4' />
-                </Button>
+              {/* Transposition Controls - Only show when chords are visible */}
+              {showChords && (
+                <div className='flex items-center'>
+                  <Button
+                    onClick={decreaseTransposition}
+                    variant='outline'
+                    size='sm'
+                    disabled={transpositionSemitones <= -12}
+                    className='rounded-r-none'
+                  >
+                    <Minus className='h-4 w-4' />
+                  </Button>
 
-                {/* Transposition Display */}
-                <div className='flex items-center justify-center text-foreground w-8 h-9 text-sm font-mono border-t border-b border-border bg-background'>
-                  {transpositionSemitones > 0 ? '+' : ''}
-                  {transpositionSemitones}
+                  {/* Transposition Display */}
+                  <div className='flex items-center justify-center text-foreground w-8 h-9 text-sm font-mono border-t border-b border-border bg-background'>
+                    {transpositionSemitones > 0 ? '+' : ''}
+                    {transpositionSemitones}
+                  </div>
+
+                  <Button
+                    onClick={increaseTransposition}
+                    variant='outline'
+                    size='sm'
+                    disabled={transpositionSemitones >= 12}
+                    className='rounded-l-none'
+                  >
+                    <Plus className='h-4 w-4' />
+                  </Button>
                 </div>
-
-                <Button
-                  onClick={increaseTransposition}
-                  variant='outline'
-                  size='sm'
-                  disabled={transpositionSemitones >= 12}
-                  className='rounded-l-none'
-                >
-                  <Plus className='h-4 w-4' />
-                </Button>
-              </div>
+              )}
 
               {/* Expand Button */}
               <Button
@@ -229,24 +231,26 @@ function SongDetail() {
             {/* Second Row - Expanded Controls */}
             {showExpandedControls && (
               <div className='flex items-center gap-3 sm:gap-6 justify-end'>
-                {/* Capo Dropdown */}
-                <div className='relative'>
-                  <select
-                    value={capoPosition}
-                    onChange={e =>
-                      setCapoPosition(parseInt(e.target.value, 10))
-                    }
-                    className='appearance-none bg-background border border-border rounded-md px-3 py-2 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent'
-                  >
-                    <option value={0}>No Capo</option>
-                    {Array.from({ length: 12 }, (_, i) => i + 1).map(num => (
-                      <option key={num} value={num}>
-                        Capo {num}
-                      </option>
-                    ))}
-                  </select>
-                  <ChevronDown className='absolute right-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none' />
-                </div>
+                {/* Capo Dropdown - Only show when chords are visible */}
+                {showChords && (
+                  <div className='relative'>
+                    <select
+                      value={capoPosition}
+                      onChange={e =>
+                        setCapoPosition(parseInt(e.target.value, 10))
+                      }
+                      className='appearance-none bg-background border border-border rounded-md px-3 py-2 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent'
+                    >
+                      <option value={0}>No Capo</option>
+                      {Array.from({ length: 12 }, (_, i) => i + 1).map(num => (
+                        <option key={num} value={num}>
+                          Capo {num}
+                        </option>
+                      ))}
+                    </select>
+                    <ChevronDown className='absolute right-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none' />
+                  </div>
+                )}
 
                 {/* Chord Visibility Toggle */}
                 <div className='flex items-center'>
