@@ -1,11 +1,13 @@
 # AGENTS.md - Project Context and Progress
 
 ## Project Overview
+
 **Chords App** - A React application for serving songs with chords and lyrics.
 
 ## Current Status: React TypeScript Vite Project Initialized ✅
 
 ### Completed Tasks
+
 1. **Git Repository Initialization**
    - Initialized empty git repository in `/Users/vhalchuk/Projects/chords/`
    - Repository is ready for version control
@@ -37,11 +39,20 @@
    - Set up TypeScript configuration files
    - Created basic React app structure with modern tooling
 
+6. **Code Formatting Setup**
+   - Added Prettier 3.6.2 for consistent code formatting
+   - Configured ESLint integration with Prettier
+   - Set up formatting scripts (format, format:check, lint:fix)
+   - Created Prettier configuration with React-friendly settings
+
 ## Project Structure
+
 ```
 /Users/vhalchuk/Projects/chords/
 ├── .git/                 # Git repository
 ├── .gitignore           # Git ignore rules
+├── .prettierrc          # Prettier configuration
+├── .prettierignore      # Prettier ignore patterns
 ├── package.json         # npm configuration with Vite scripts
 ├── package-lock.json    # Dependency lock file
 ├── README.md            # Project documentation
@@ -50,7 +61,7 @@
 ├── tsconfig.json        # TypeScript configuration
 ├── tsconfig.app.json    # App-specific TypeScript config
 ├── tsconfig.node.json   # Node-specific TypeScript config
-├── eslint.config.js     # ESLint configuration
+├── eslint.config.js     # ESLint configuration with Prettier
 ├── index.html           # HTML entry point
 ├── public/              # Static assets
 │   └── vite.svg
@@ -65,7 +76,9 @@
 ```
 
 ## Next Development Phase
+
 The project is now ready for:
+
 - Component architecture planning
 - Song data structure design
 - Chord and lyrics display implementation
@@ -73,24 +86,29 @@ The project is now ready for:
 - State management setup
 
 ## Technical Context
+
 - **Platform**: macOS (darwin 24.6.0)
 - **Shell**: /bin/zsh
 - **Package Manager**: npm
 - **Build Tool**: Vite 7.1.2
 - **Framework**: React 19.1.1 with TypeScript 5.8.3
 - **Linting**: ESLint with React plugins
+- **Formatting**: Prettier 3.6.2 with ESLint integration
 - **Project Type**: Web application for music/chords
 
 ## Development Notes
+
 - React TypeScript Vite project fully initialized
 - All dependencies installed and configured
 - Development server ready (`npm run dev`)
 - Build system configured (`npm run build`)
 - ESLint configured for code quality
+- Prettier configured for consistent formatting
 - TypeScript strict mode enabled
 - Modern React 19 with latest features available
 
 ## Git Commit Convention
+
 - **Commit Message Format**: Use conventional commits format: `type(scope): description`
   - `feat:` - New features
   - `fix:` - Bug fixes
@@ -99,7 +117,7 @@ The project is now ready for:
   - `refactor:` - Code refactoring
   - `test:` - Adding or updating tests
   - `chore:` - Maintenance tasks, dependency updates
-- **Examples**: 
+- **Examples**:
   - `feat(ui): add chord display component`
   - `fix(parser): handle malformed chord notation`
   - `docs(readme): update installation instructions`
@@ -111,6 +129,7 @@ The project is now ready for:
   - Small feature additions that don't require user review
 
 ## Future Considerations
+
 - Will need to decide on React setup method (Create React App, Vite, etc.)
 - Song data format and storage strategy
 - Chord notation system and display
