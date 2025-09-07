@@ -70,26 +70,28 @@ function Editor() {
   return (
     <div className='max-w-7xl mx-auto p-6'>
       {/* Header */}
-      <div className='flex items-center justify-between mb-6'>
-        <div className='flex items-center gap-4'>
+      <div className='mb-6'>
+        <div className='flex items-center justify-between mb-4'>
           <Button onClick={handleBackToHome} variant='outline'>
-            <ArrowLeft className='h-4 w-4 mr-2' />
-            Back to Songs
+            <ArrowLeft className='h-4 w-4' />
+            <span className='hidden sm:inline ml-2'>Back to Songs</span>
           </Button>
-          <h1 className='text-3xl font-bold'>Song Editor</h1>
+          <Button
+            onClick={handleClearAll}
+            variant={isCleared ? 'default' : 'outline'}
+            size='sm'
+          >
+            {isCleared ? (
+              <Check className='h-4 w-4 mr-2' />
+            ) : (
+              <Trash2 className='h-4 w-4 mr-2' />
+            )}
+            {isCleared ? 'Cleared!' : 'Clear All'}
+          </Button>
         </div>
-        <Button
-          onClick={handleClearAll}
-          variant={isCleared ? 'default' : 'outline'}
-          size='sm'
-        >
-          {isCleared ? (
-            <Check className='h-4 w-4 mr-2' />
-          ) : (
-            <Trash2 className='h-4 w-4 mr-2' />
-          )}
-          {isCleared ? 'Cleared!' : 'Clear All'}
-        </Button>
+
+        {/* Page Title */}
+        <h1 className='text-3xl font-bold text-center'>Song Editor</h1>
       </div>
 
       {/* Two Column Layout */}
