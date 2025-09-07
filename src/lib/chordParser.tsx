@@ -45,3 +45,14 @@ export function parseLyricsWithChords(
 
   return result;
 }
+
+/**
+ * Parses lyrics and returns plain text without chord notation
+ * Removes all chord brackets: [C], [Am], [F], etc.
+ * @param lyrics The lyrics string with chord notation
+ * @returns Plain text lyrics without chords
+ */
+export function parseLyricsWithoutChords(lyrics: string): string {
+  // Remove all chord notation (square brackets and their contents)
+  return lyrics.replace(/\[([^\]]+)\]/g, '');
+}

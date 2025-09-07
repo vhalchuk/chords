@@ -4,10 +4,20 @@ import {
   useParams,
 } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
-import { Plus, Minus, AArrowDown, AArrowUp } from 'lucide-react';
+import {
+  Plus,
+  Minus,
+  AArrowDown,
+  AArrowUp,
+  LetterText,
+  ListMusic,
+} from 'lucide-react';
 import type { Song } from '@/types/song';
 import songsData from '@/data/songs.json';
-import { parseLyricsWithChords } from '@/lib/chordParser';
+import {
+  parseLyricsWithChords,
+  parseLyricsWithoutChords,
+} from '@/lib/chordParser';
 import { useMemo, useState, useEffect } from 'react';
 
 export const Route = createFileRoute('/song/$songId')({
@@ -29,6 +39,12 @@ function SongDetail() {
     return saved ? parseInt(saved, 10) : 0;
   });
 
+  const [showChords, setShowChords] = useState(() => {
+    // Load from localStorage or use default (true = show chords)
+    const saved = localStorage.getItem('chords-visibility');
+    return saved ? saved === 'true' : true;
+  });
+
   // Save font size to localStorage whenever it changes
   useEffect(() => {
     localStorage.setItem('chords-font-size', fontSize.toString());
@@ -41,6 +57,11 @@ function SongDetail() {
       transpositionSemitones.toString()
     );
   }, [transpositionSemitones]);
+
+  // Save chord visibility to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('chords-visibility', showChords.toString());
+  }, [showChords]);
 
   const song = useMemo(() => {
     return songsData.find((s: Song) => s.id === songId);
@@ -56,12 +77,14 @@ function SongDetail() {
       <div key={sectionIndex} className='mb-4'>
         {section.split('\n').map((line, lineIndex) => (
           <div key={lineIndex}>
-            {parseLyricsWithChords(line, transpositionSemitones)}
+            {showChords
+              ? parseLyricsWithChords(line, transpositionSemitones)
+              : parseLyricsWithoutChords(line)}
           </div>
         ))}
       </div>
     ));
-  }, [song, transpositionSemitones]);
+  }, [song, transpositionSemitones, showChords]);
 
   const handleBackToHome = () => {
     navigate({ to: '/' });
@@ -154,6 +177,28 @@ function SongDetail() {
                 className='rounded-l-none'
               >
                 <Plus className='h-4 w-4' />
+              </Button>
+            </div>
+
+            {/* Chord Visibility Toggle */}
+            <div className='flex items-center'>
+              <Button
+                onClick={() => setShowChords(false)}
+                variant={!showChords ? 'default' : 'outline'}
+                size='sm'
+                className='rounded-r-none border-r-0'
+                title='Show lyrics only'
+              >
+                <LetterText className='h-4 w-4' />
+              </Button>
+              <Button
+                onClick={() => setShowChords(true)}
+                variant={showChords ? 'default' : 'outline'}
+                size='sm'
+                className='rounded-l-none'
+                title='Show lyrics with chords'
+              >
+                <ListMusic className='h-4 w-4' />
               </Button>
             </div>
           </div>
