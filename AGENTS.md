@@ -128,6 +128,22 @@ The project is now ready for:
   - Code formatting and style improvements
   - Small feature additions that don't require user review
 
+## Code Quality Requirements
+
+- **MANDATORY**: AI agents MUST run linting and formatting before committing changes
+  - Run `npm run lint:fix` to fix ESLint and Prettier issues
+  - Run `npm run format` to ensure consistent code formatting
+  - Verify `npm run lint` passes with no errors
+  - Verify `npm run format:check` passes with no warnings
+- **Pre-commit Checklist**:
+  1. ✅ Code compiles without TypeScript errors
+  2. ✅ ESLint passes with no errors (`npm run lint`)
+  3. ✅ Prettier formatting is consistent (`npm run format:check`)
+  4. ✅ All tests pass (when tests are added)
+  5. ✅ Documentation updated if needed
+- **Failure Handling**: If linting/formatting fails, fix issues before committing
+- **Quality Gate**: No commits should be made with linting errors or formatting issues
+
 ## Future Considerations
 
 - Will need to decide on React setup method (Create React App, Vite, etc.)
