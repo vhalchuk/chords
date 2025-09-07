@@ -5,17 +5,19 @@ import {
   useLocation,
 } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
-import { Music } from 'lucide-react';
+import { Music, Edit } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 const RootLayout = () => {
   const location = useLocation();
   const isSongPage = location.pathname.startsWith('/song/');
+  const isEditorPage = location.pathname === '/editor';
 
   return (
     <div className='min-h-screen bg-background'>
       <div className='container mx-auto px-4 py-8'>
         {/* Header - only show on homepage */}
-        {!isSongPage && (
+        {!isSongPage && !isEditorPage && (
           <div className='text-center mb-8'>
             <Link
               to='/'
@@ -26,9 +28,15 @@ const RootLayout = () => {
               </div>
               <h1 className='text-4xl font-bold text-foreground'>Chords App</h1>
             </Link>
-            <p className='text-lg text-muted-foreground max-w-2xl mx-auto'>
+            <p className='text-lg text-muted-foreground max-w-2xl mx-auto mb-6'>
               Discover and play your favorite songs with chords and lyrics.
             </p>
+            <Link to='/editor'>
+              <Button variant='outline'>
+                <Edit className='h-4 w-4 mr-2' />
+                Song Editor
+              </Button>
+            </Link>
           </div>
         )}
 
@@ -36,7 +44,7 @@ const RootLayout = () => {
         <Outlet />
 
         {/* Footer - only show on homepage */}
-        {!isSongPage && (
+        {!isSongPage && !isEditorPage && (
           <div className='text-center text-sm text-muted-foreground mt-12'>
             <p>Built with React, TypeScript, Tailwind CSS, and Shadcn UI</p>
           </div>
