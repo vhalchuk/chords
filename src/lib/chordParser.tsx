@@ -1,13 +1,25 @@
 import React from 'react';
+import { transposeLine } from './chordTransposer';
 
 /**
  * Parses lyrics with chord notation and returns JSX with styled chords
  * Chords are denoted by square brackets: [C], [Am], [F], etc.
+ * @param lyrics The lyrics string with chord notation
+ * @param transpositionSemitones Number of semitones to transpose chords (default: 0)
  */
-export function parseLyricsWithChords(lyrics: string): React.ReactNode[] {
+export function parseLyricsWithChords(
+  lyrics: string,
+  transpositionSemitones: number = 0
+): React.ReactNode[] {
+  // Apply transposition to the lyrics line
+  const transposedLyrics =
+    transpositionSemitones !== 0
+      ? transposeLine(lyrics, transpositionSemitones)
+      : lyrics;
+
   // Regex to match chords in square brackets
   const chordRegex = /\[([^\]]+)\]/g;
-  const parts = lyrics.split(chordRegex);
+  const parts = transposedLyrics.split(chordRegex);
 
   const result: React.ReactNode[] = [];
 
