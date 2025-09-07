@@ -166,6 +166,10 @@ function Editor() {
               <p className='text-sm text-muted-foreground mt-2'>
                 Use square brackets for chords: [C], [Am], [F], [G], etc.
               </p>
+              <p className='text-sm text-muted-foreground'>
+                Use "## " for section headers: ## Verse 1, ## Chorus, ## Bridge,
+                etc.
+              </p>
             </div>
           </CardContent>
         </Card>
