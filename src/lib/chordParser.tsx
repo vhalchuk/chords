@@ -22,7 +22,8 @@ export function parseLyricsWithChords(lyrics: string): React.ReactNode[] {
       result.push(
         <span
           key={`chord-${i}`}
-          className='inline-block px-2 py-1 mx-1 bg-primary/10 text-primary text-xs rounded-md border border-primary/20'
+          className='inline-block px-2 py-1 mx-1 bg-primary/10 text-primary rounded-md border border-primary/20'
+          style={{ fontSize: '0.75em' }}
         >
           {parts[i]}
         </span>
