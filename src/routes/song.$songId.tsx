@@ -100,7 +100,8 @@ function SongDetail() {
       <div className='mb-6'>
         <div className='flex items-center justify-between mb-4'>
           <Button onClick={handleBackToHome} variant='outline'>
-            ← Back to Songs
+            <span className='hidden sm:inline'>← Back to Songs</span>
+            <span className='sm:hidden'>←</span>
           </Button>
 
           {/* Controls Container */}
