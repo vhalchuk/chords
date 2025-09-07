@@ -4,7 +4,7 @@ import {
   useParams,
 } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
-import { Plus, Minus, Type } from 'lucide-react';
+import { Plus, Minus, AArrowDown, AArrowUp } from 'lucide-react';
 import type { Song } from '@/types/song';
 import songsData from '@/data/songs.json';
 import { parseLyricsWithChords } from '@/lib/chordParser';
@@ -106,34 +106,24 @@ function SongDetail() {
           {/* Controls Container */}
           <div className='flex items-center gap-6'>
             {/* Font Size Controls */}
-            <div className='flex items-center gap-2'>
+            <div className='flex items-center'>
               <Button
                 onClick={decreaseFontSize}
                 variant='outline'
                 size='sm'
                 disabled={fontSize <= 10}
+                className='rounded-r-none border-r-0'
               >
-                <Minus className='h-4 w-4' />
+                <AArrowDown className='h-5 w-5' />
               </Button>
-
-              {/* Dynamic Type Icon */}
-              <div className='flex items-center justify-center text-muted-foreground w-8 h-8'>
-                <Type
-                  style={{
-                    fontSize: `${Math.max(fontSize * 0.8, 8)}px`,
-                    width: `${Math.max(fontSize * 0.8, 8)}px`,
-                    height: `${Math.max(fontSize * 0.8, 8)}px`,
-                  }}
-                />
-              </div>
-
               <Button
                 onClick={increaseFontSize}
                 variant='outline'
                 size='sm'
                 disabled={fontSize >= 24}
+                className='rounded-l-none'
               >
-                <Plus className='h-4 w-4' />
+                <AArrowUp className='h-7 w-7' />
               </Button>
             </div>
 
