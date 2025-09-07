@@ -213,11 +213,10 @@ function Editor() {
                       .split('\n\n')
                       .map((section, sectionIndex) => (
                         <div key={sectionIndex} className='mb-4'>
-                          {section.split('\n').map((line, lineIndex) => (
-                            <div key={lineIndex} className='mb-1'>
-                              {parseLyricsWithChords(line)}
-                            </div>
-                          ))}
+                          {section.split('\n').map(line => {
+                            const parsed = parseLyricsWithChords(line);
+                            return parsed;
+                          })}
                         </div>
                       ))}
                   </div>

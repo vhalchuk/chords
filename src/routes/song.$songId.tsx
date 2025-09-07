@@ -93,13 +93,24 @@ function SongDetail() {
 
     return sections.map((section, sectionIndex) => (
       <div key={sectionIndex} className='mb-4'>
-        {section.split('\n').map((line, lineIndex) => (
-          <div key={lineIndex}>
-            {showChords
-              ? parseLyricsWithChords(line, transpositionSemitones)
-              : parseLyricsWithoutChords(line)}
-          </div>
-        ))}
+        {section.split('\n').map((line, lineIndex) => {
+          if (showChords) {
+            return parseLyricsWithChords(line, transpositionSemitones);
+          } else if (line.startsWith('## ')) {
+            return (
+              <h2 key={lineIndex} className='font-bold text-foreground mb-2'>
+                {line.substring(3)}
+              </h2>
+            );
+          } else {
+            const text = parseLyricsWithoutChords(line);
+            return (
+              <p key={lineIndex} className='mb-1'>
+                {text || '\u00A0'}
+              </p>
+            );
+          }
+        })}
       </div>
     ));
   }, [song, transpositionSemitones, showChords]);
@@ -253,6 +264,14 @@ function SongDetail() {
               )}
             </div>
           </div>
+        </div>
+
+        {/* Song Header */}
+        <div className='text-center border-b pb-4 mb-6'>
+          <h1 className='text-3xl font-bold text-foreground mb-2'>
+            {song.title}
+          </h1>
+          <p className='text-lg text-muted-foreground'>by {song.artist}</p>
         </div>
 
         <div className='leading-relaxed' style={{ fontSize: `${fontSize}px` }}>
