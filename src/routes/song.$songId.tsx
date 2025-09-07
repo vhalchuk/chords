@@ -157,7 +157,7 @@ function SongDetail() {
           </Button>
 
           {/* Controls Container */}
-          <div className='flex items-center gap-6'>
+          <div className='flex items-center gap-3 sm:gap-6'>
             {/* Font Size Controls */}
             <div className='flex items-center'>
               <Button
