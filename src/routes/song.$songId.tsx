@@ -4,7 +4,6 @@ import {
   useParams,
 } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
 import type { Song } from '@/types/song';
 import songsData from '@/data/songs.json';
 import { parseLyricsWithChords } from '@/lib/chordParser';
@@ -60,11 +59,7 @@ function SongDetail() {
           ← Back to Songs
         </Button>
 
-        <Card>
-          <CardContent className='pt-6'>
-            <div className='text-sm leading-relaxed'>{parsedLyrics}</div>
-          </CardContent>
-        </Card>
+        <div className='text-sm leading-relaxed'>{parsedLyrics}</div>
       </div>
     </div>
   );
