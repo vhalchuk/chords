@@ -11,8 +11,8 @@ import {
   AArrowUp,
   LetterText,
   ListMusic,
-  MoreHorizontal,
   ChevronDown,
+  ChevronUp,
 } from 'lucide-react';
 import type { Song } from '@/types/song';
 import songsData from '@/data/songs.json';
@@ -47,7 +47,7 @@ function SongDetail() {
     return saved ? saved === 'true' : true;
   });
 
-  const [showSettings, setShowSettings] = useState(false);
+  const [showExpandedControls, setShowExpandedControls] = useState(false);
   const [capoPosition, setCapoPosition] = useState(() => {
     // Load from localStorage or use default (0 = no capo)
     const saved = localStorage.getItem(`chords-capo-${songId}`);
@@ -76,21 +76,6 @@ function SongDetail() {
   useEffect(() => {
     localStorage.setItem(`chords-capo-${songId}`, capoPosition.toString());
   }, [capoPosition, songId]);
-
-  // Close settings dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as Element;
-      if (showSettings && !target.closest('.settings-dropdown')) {
-        setShowSettings(false);
-      }
-    };
-
-    if (showSettings) {
-      document.addEventListener('click', handleClickOutside);
-      return () => document.removeEventListener('click', handleClickOutside);
-    }
-  }, [showSettings]);
 
   const song = useMemo(() => {
     return songsData.find((s: Song) => s.id === songId);
@@ -161,136 +146,131 @@ function SongDetail() {
   return (
     <div className='max-w-4xl mx-auto'>
       <div className='mb-6'>
-        <div className='flex items-center justify-between mb-4'>
+        <div className='flex items-start justify-between mb-4'>
           <Button onClick={handleBackToHome} variant='outline'>
             <span className='hidden sm:inline'>← Back to Songs</span>
             <span className='sm:hidden'>←</span>
           </Button>
 
           {/* Controls Container */}
-          <div className='flex items-center gap-3 sm:gap-6'>
-            {/* Font Size Controls */}
-            <div className='flex items-center'>
-              <Button
-                onClick={decreaseFontSize}
-                variant='outline'
-                size='sm'
-                disabled={fontSize <= 10}
-                className='rounded-r-none border-r-0'
-              >
-                <AArrowDown className='h-5 w-5' />
-              </Button>
-              <Button
-                onClick={increaseFontSize}
-                variant='outline'
-                size='sm'
-                disabled={fontSize >= 24}
-                className='rounded-l-none'
-              >
-                <AArrowUp className='h-7 w-7' />
-              </Button>
-            </div>
-
-            {/* Transposition Controls */}
-            <div className='flex items-center'>
-              <Button
-                onClick={decreaseTransposition}
-                variant='outline'
-                size='sm'
-                disabled={transpositionSemitones <= -12}
-                className='rounded-r-none'
-              >
-                <Minus className='h-4 w-4' />
-              </Button>
-
-              {/* Transposition Display */}
-              <div className='flex items-center justify-center text-foreground w-8 h-9 text-sm font-mono border-t border-b border-border bg-background'>
-                {transpositionSemitones > 0 ? '+' : ''}
-                {transpositionSemitones}
+          <div className='flex flex-col gap-3'>
+            {/* First Row - Main Controls */}
+            <div className='flex items-center gap-3 sm:gap-6'>
+              {/* Font Size Controls */}
+              <div className='flex items-center'>
+                <Button
+                  onClick={decreaseFontSize}
+                  variant='outline'
+                  size='sm'
+                  disabled={fontSize <= 10}
+                  className='rounded-r-none border-r-0'
+                >
+                  <AArrowDown className='h-5 w-5' />
+                </Button>
+                <Button
+                  onClick={increaseFontSize}
+                  variant='outline'
+                  size='sm'
+                  disabled={fontSize >= 24}
+                  className='rounded-l-none'
+                >
+                  <AArrowUp className='h-7 w-7' />
+                </Button>
               </div>
 
-              <Button
-                onClick={increaseTransposition}
-                variant='outline'
-                size='sm'
-                disabled={transpositionSemitones >= 12}
-                className='rounded-l-none'
-              >
-                <Plus className='h-4 w-4' />
-              </Button>
-            </div>
+              {/* Transposition Controls */}
+              <div className='flex items-center'>
+                <Button
+                  onClick={decreaseTransposition}
+                  variant='outline'
+                  size='sm'
+                  disabled={transpositionSemitones <= -12}
+                  className='rounded-r-none'
+                >
+                  <Minus className='h-4 w-4' />
+                </Button>
 
-            {/* Capo Dropdown */}
-            <div className='relative'>
-              <select
-                value={capoPosition}
-                onChange={e => setCapoPosition(parseInt(e.target.value, 10))}
-                className='appearance-none bg-background border border-border rounded-md px-3 py-2 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent'
-              >
-                <option value={0}>No Capo</option>
-                {Array.from({ length: 12 }, (_, i) => i + 1).map(num => (
-                  <option key={num} value={num}>
-                    Capo {num}
-                  </option>
-                ))}
-              </select>
-              <ChevronDown className='absolute right-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none' />
-            </div>
-
-            {/* Settings Dropdown */}
-            <div className='relative settings-dropdown'>
-              <Button
-                onClick={e => {
-                  e.stopPropagation();
-                  setShowSettings(!showSettings);
-                }}
-                variant='outline'
-                size='sm'
-                title='Settings'
-              >
-                <MoreHorizontal className='h-4 w-4' />
-              </Button>
-
-              {showSettings && (
-                <div className='absolute right-0 top-full mt-1 bg-background border border-border rounded-md shadow-lg z-10 min-w-48'>
-                  <div className='p-2'>
-                    <div className='text-sm font-medium text-foreground mb-2'>
-                      Display Options
-                    </div>
-                    <div className='space-y-1'>
-                      <button
-                        onClick={() => {
-                          setShowChords(false);
-                          setShowSettings(false);
-                        }}
-                        className={`w-full text-left px-2 py-1 rounded text-sm flex items-center gap-2 ${
-                          !showChords
-                            ? 'bg-primary text-primary-foreground'
-                            : 'hover:bg-muted'
-                        }`}
-                      >
-                        <LetterText className='h-4 w-4' />
-                        Lyrics Only
-                      </button>
-                      <button
-                        onClick={() => {
-                          setShowChords(true);
-                          setShowSettings(false);
-                        }}
-                        className={`w-full text-left px-2 py-1 rounded text-sm flex items-center gap-2 ${
-                          showChords
-                            ? 'bg-primary text-primary-foreground'
-                            : 'hover:bg-muted'
-                        }`}
-                      >
-                        <ListMusic className='h-4 w-4' />
-                        Lyrics with Chords
-                      </button>
-                    </div>
-                  </div>
+                {/* Transposition Display */}
+                <div className='flex items-center justify-center text-foreground w-8 h-9 text-sm font-mono border-t border-b border-border bg-background'>
+                  {transpositionSemitones > 0 ? '+' : ''}
+                  {transpositionSemitones}
                 </div>
-              )}
+
+                <Button
+                  onClick={increaseTransposition}
+                  variant='outline'
+                  size='sm'
+                  disabled={transpositionSemitones >= 12}
+                  className='rounded-l-none'
+                >
+                  <Plus className='h-4 w-4' />
+                </Button>
+              </div>
+
+              {/* Expand Button */}
+              <Button
+                onClick={() => setShowExpandedControls(!showExpandedControls)}
+                variant='outline'
+                size='sm'
+                title={
+                  showExpandedControls
+                    ? 'Hide more controls'
+                    : 'Show more controls'
+                }
+              >
+                {showExpandedControls ? (
+                  <ChevronUp className='h-4 w-4' />
+                ) : (
+                  <ChevronDown className='h-4 w-4' />
+                )}
+              </Button>
             </div>
+
+            {/* Second Row - Expanded Controls */}
+            {showExpandedControls && (
+              <div className='flex items-center gap-3 sm:gap-6 justify-end'>
+                {/* Capo Dropdown */}
+                <div className='relative'>
+                  <select
+                    value={capoPosition}
+                    onChange={e =>
+                      setCapoPosition(parseInt(e.target.value, 10))
+                    }
+                    className='appearance-none bg-background border border-border rounded-md px-3 py-2 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent'
+                  >
+                    <option value={0}>No Capo</option>
+                    {Array.from({ length: 12 }, (_, i) => i + 1).map(num => (
+                      <option key={num} value={num}>
+                        Capo {num}
+                      </option>
+                    ))}
+                  </select>
+                  <ChevronDown className='absolute right-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none' />
+                </div>
+
+                {/* Chord Visibility Toggle */}
+                <div className='flex items-center'>
+                  <Button
+                    onClick={() => setShowChords(false)}
+                    variant={!showChords ? 'default' : 'outline'}
+                    size='sm'
+                    title='Show lyrics only'
+                    className='rounded-r-none border-r-0'
+                  >
+                    <LetterText className='h-4 w-4' />
+                  </Button>
+                  <Button
+                    onClick={() => setShowChords(true)}
+                    variant={showChords ? 'default' : 'outline'}
+                    size='sm'
+                    title='Show lyrics with chords'
+                    className='rounded-l-none'
+                  >
+                    <ListMusic className='h-4 w-4' />
+                  </Button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
