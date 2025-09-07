@@ -61,6 +61,14 @@
    - Built custom Button and Card components
    - Updated App component with Shadcn UI components and Lucide icons
 
+9. **Pre-commit Hook Setup**
+   - Installed Husky for git hooks management
+   - Installed lint-staged for staged file processing
+   - Configured pre-commit hook to run linting and formatting
+   - Set up lint-staged to process TypeScript, JSON, Markdown, and CSS files
+   - Automatically runs ESLint --fix and Prettier --write on staged files
+   - Ensures code quality before every commit
+
 ## Project Structure
 
 ```
@@ -79,6 +87,8 @@
 ├── tsconfig.node.json   # Node-specific TypeScript config
 ├── eslint.config.js     # ESLint configuration with Prettier
 ├── components.json      # Shadcn UI configuration
+├── .husky/              # Git hooks directory
+│   └── pre-commit       # Pre-commit hook script
 ├── index.html           # HTML entry point
 ├── public/              # Static assets
 │   └── vite.svg
@@ -120,6 +130,7 @@ The project is now ready for:
 - **Styling**: Tailwind CSS with Vite plugin
 - **UI Components**: Shadcn UI with custom components
 - **Icons**: Lucide React icons
+- **Git Hooks**: Husky with lint-staged for pre-commit quality checks
 - **Linting**: ESLint with React plugins
 - **Formatting**: Prettier 3.6.2 with ESLint integration
 - **Project Type**: Web application for music/chords
@@ -135,6 +146,7 @@ The project is now ready for:
 - Tailwind CSS configured with Vite plugin
 - Shadcn UI components ready for use
 - Path aliases configured for clean imports
+- Pre-commit hooks configured for automatic quality checks
 - TypeScript strict mode enabled
 - Modern React 19 with latest features available
 
