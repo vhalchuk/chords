@@ -12,6 +12,7 @@ import {
   LetterText,
   ListMusic,
   MoreHorizontal,
+  ChevronDown,
 } from 'lucide-react';
 import type { Song } from '@/types/song';
 import songsData from '@/data/songs.json';
@@ -36,7 +37,7 @@ function SongDetail() {
 
   const [transpositionSemitones, setTranspositionSemitones] = useState(() => {
     // Load from localStorage or use default
-    const saved = localStorage.getItem('chords-transposition');
+    const saved = localStorage.getItem(`chords-transposition-${songId}`);
     return saved ? parseInt(saved, 10) : 0;
   });
 
@@ -47,6 +48,11 @@ function SongDetail() {
   });
 
   const [showSettings, setShowSettings] = useState(false);
+  const [capoPosition, setCapoPosition] = useState(() => {
+    // Load from localStorage or use default (0 = no capo)
+    const saved = localStorage.getItem(`chords-capo-${songId}`);
+    return saved ? parseInt(saved, 10) : 0;
+  });
 
   // Save font size to localStorage whenever it changes
   useEffect(() => {
@@ -56,15 +62,20 @@ function SongDetail() {
   // Save transposition to localStorage whenever it changes
   useEffect(() => {
     localStorage.setItem(
-      'chords-transposition',
+      `chords-transposition-${songId}`,
       transpositionSemitones.toString()
     );
-  }, [transpositionSemitones]);
+  }, [transpositionSemitones, songId]);
 
   // Save chord visibility to localStorage whenever it changes
   useEffect(() => {
     localStorage.setItem('chords-visibility', showChords.toString());
   }, [showChords]);
+
+  // Save capo position to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem(`chords-capo-${songId}`, capoPosition.toString());
+  }, [capoPosition, songId]);
 
   // Close settings dropdown when clicking outside
   useEffect(() => {
@@ -207,6 +218,23 @@ function SongDetail() {
               >
                 <Plus className='h-4 w-4' />
               </Button>
+            </div>
+
+            {/* Capo Dropdown */}
+            <div className='relative'>
+              <select
+                value={capoPosition}
+                onChange={e => setCapoPosition(parseInt(e.target.value, 10))}
+                className='appearance-none bg-background border border-border rounded-md px-3 py-2 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent'
+              >
+                <option value={0}>No Capo</option>
+                {Array.from({ length: 12 }, (_, i) => i + 1).map(num => (
+                  <option key={num} value={num}>
+                    Capo {num}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className='absolute right-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none' />
             </div>
 
             {/* Settings Dropdown */}
