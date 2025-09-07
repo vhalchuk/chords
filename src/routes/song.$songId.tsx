@@ -129,19 +129,20 @@ function SongDetail() {
             </div>
 
             {/* Transposition Controls */}
-            <div className='flex items-center gap-2'>
+            <div className='flex items-center'>
               <Button
                 onClick={decreaseTransposition}
                 variant='outline'
                 size='sm'
                 disabled={transpositionSemitones <= -12}
+                className='rounded-r-none'
               >
                 <Minus className='h-4 w-4' />
               </Button>
 
               {/* Transposition Display */}
-              <div className='flex items-center justify-center text-muted-foreground w-8 h-8 text-sm font-mono'>
-                {transpositionSemitones >= 0 ? '+' : ''}
+              <div className='flex items-center justify-center text-foreground w-8 h-9 text-sm font-mono border-t border-b border-border bg-background'>
+                {transpositionSemitones > 0 ? '+' : ''}
                 {transpositionSemitones}
               </div>
 
@@ -150,6 +151,7 @@ function SongDetail() {
                 variant='outline'
                 size='sm'
                 disabled={transpositionSemitones >= 12}
+                className='rounded-l-none'
               >
                 <Plus className='h-4 w-4' />
               </Button>
