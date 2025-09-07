@@ -34,8 +34,12 @@ export function parseLyricsWithChords(
       result.push(
         <span
           key={`chord-${i}`}
-          className='inline-block px-2 py-1 mx-1 bg-primary/10 text-primary rounded-md border border-primary/20'
-          style={{ fontSize: '0.75em' }}
+          className='inline-block bg-primary/10 text-primary border border-primary/20'
+          style={{
+            fontSize: '0.75em',
+            padding: '0.1em 0.5em',
+            borderRadius: '0.625em',
+          }}
         >
           {parts[i]}
         </span>
