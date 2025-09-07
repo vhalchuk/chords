@@ -6,6 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { parseLyricsWithChords } from '@/lib/chordParser';
 import type { Song } from '@/types/song';
 
 interface SongCardProps {
@@ -24,6 +25,9 @@ export function SongCard({ song, onSelect }: SongCardProps) {
       handleClick();
     }
   };
+
+  // Get first line of lyrics for preview
+  const firstLine = song.lyrics.split('\n')[0];
 
   return (
     <Card
@@ -53,7 +57,7 @@ export function SongCard({ song, onSelect }: SongCardProps) {
 
       <CardContent className='pt-0'>
         <div className='text-sm text-muted-foreground line-clamp-2'>
-          {song.lyrics.split('\n')[0]}...
+          {parseLyricsWithChords(firstLine)}...
         </div>
       </CardContent>
     </Card>

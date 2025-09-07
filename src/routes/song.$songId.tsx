@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/card';
 import type { Song } from '@/types/song';
 import songsData from '@/data/songs.json';
+import { parseLyricsWithChords } from '@/lib/chordParser';
 import { useMemo } from 'react';
 
 export const Route = createFileRoute('/song/$songId')({
@@ -26,6 +27,21 @@ function SongDetail() {
   const song = useMemo(() => {
     return songsData.find((s: Song) => s.id === songId);
   }, [songId]);
+
+  const parsedLyrics = useMemo(() => {
+    if (!song) return [];
+
+    // Split by double newlines to preserve verse/chorus boundaries
+    const sections = song.lyrics.split('\n\n');
+
+    return sections.map((section, sectionIndex) => (
+      <div key={sectionIndex} className='mb-4'>
+        {section.split('\n').map((line, lineIndex) => (
+          <div key={lineIndex}>{parseLyricsWithChords(line)}</div>
+        ))}
+      </div>
+    ));
+  }, [song]);
 
   const handleBackToHome = () => {
     navigate({ to: '/' });
@@ -56,9 +72,7 @@ function SongDetail() {
             <CardDescription>{song.artist}</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className='whitespace-pre-line text-sm leading-relaxed'>
-              {song.lyrics}
-            </div>
+            <div className='text-sm leading-relaxed'>{parsedLyrics}</div>
           </CardContent>
         </Card>
       </div>
