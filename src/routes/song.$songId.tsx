@@ -4,13 +4,7 @@ import {
   useParams,
 } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import type { Song } from '@/types/song';
 import songsData from '@/data/songs.json';
 import { parseLyricsWithChords } from '@/lib/chordParser';
@@ -67,11 +61,7 @@ function SongDetail() {
         </Button>
 
         <Card>
-          <CardHeader>
-            <CardTitle className='text-2xl'>{song.title}</CardTitle>
-            <CardDescription>{song.artist}</CardDescription>
-          </CardHeader>
-          <CardContent>
+          <CardContent className='pt-6'>
             <div className='text-sm leading-relaxed'>{parsedLyrics}</div>
           </CardContent>
         </Card>
