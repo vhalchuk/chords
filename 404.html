@@ -7,7 +7,7 @@
       // Simple redirect to main app for GitHub Pages SPA
       // This ensures all routes are handled by the React app
       var l = window.location;
-      var basePath = '/chords/';
+      var basePath = window.location.pathname.split('/').slice(0, 2).join('/') + '/';
       var currentPath = l.pathname;
       
       // If we're not already at the base path, redirect to it
