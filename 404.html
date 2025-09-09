@@ -1,27 +1,14 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
   <head>
-    <meta charset="utf-8">
-    <title>Chords App</title>
-    <script type="text/javascript">
-      // Simple redirect to main app for GitHub Pages SPA
-      // This ensures all routes are handled by the React app
-      var l = window.location;
-      var basePath = window.location.pathname.split('/').slice(0, 2).join('/') + '/';
-      var currentPath = l.pathname;
-      
-      // If we're not already at the base path, redirect to it
-      if (!currentPath.startsWith(basePath)) {
-        l.replace(basePath);
-      } else {
-        // If we're at the base path, redirect to the base path with a query parameter
-        // to let React Router handle the original route
-        var originalRoute = currentPath.substring(basePath.length - 1);
-        l.replace(basePath + '?route=' + encodeURIComponent(originalRoute));
-      }
-    </script>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/chords/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React + TS</title>
+    <script type="module" crossorigin src="/chords/assets/index-CgjJ7-jr.js"></script>
+    <link rel="stylesheet" crossorigin href="/chords/assets/index-DlRiITc7.css">
   </head>
   <body>
-    <p>Redirecting to Chords App...</p>
+    <div id="root"></div>
   </body>
 </html>
