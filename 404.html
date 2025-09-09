@@ -14,8 +14,10 @@
       if (!currentPath.startsWith(basePath)) {
         l.replace(basePath);
       } else {
-        // If we're at the base path, just reload to let React Router handle it
-        l.reload();
+        // If we're at the base path, redirect to the base path with a query parameter
+        // to let React Router handle the original route
+        var originalRoute = currentPath.substring(basePath.length - 1);
+        l.replace(basePath + '?route=' + encodeURIComponent(originalRoute));
       }
     </script>
   </head>
