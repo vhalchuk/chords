@@ -219,9 +219,9 @@ function Editor() {
                   <div className='leading-relaxed'>
                     {songData.lyrics
                       .split('\n\n')
-                      .map((section, sectionIndex) => (
+                      .map((section: string, sectionIndex: number) => (
                         <div key={sectionIndex} className='mb-4'>
-                          {section.split('\n').map(line => {
+                          {section.split('\n').map((line: string) => {
                             const parsed = parseLyricsWithChords(line);
                             return parsed;
                           })}

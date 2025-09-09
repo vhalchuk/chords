@@ -14,7 +14,6 @@ const RootLayout = () => {
       speed: 500,
       minimum: 0.08,
       trickleSpeed: 100,
-      trickleRate: 0.02,
     });
 
     // Custom CSS for black progress bar

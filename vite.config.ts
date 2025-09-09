@@ -6,6 +6,8 @@ import path from 'path';
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: process.env.PUBLIC_BASE_PATH || '/',
+  envPrefix: 'PUBLIC_',
   plugins: [
     // TanStack Router plugin must come before React plugin
     tanstackRouter({

@@ -88,9 +88,9 @@ function SongDetail() {
     // Split by double newlines to preserve verse/chorus boundaries
     const sections = song.lyrics.split('\n\n');
 
-    return sections.map((section, sectionIndex) => (
+    return sections.map((section: string, sectionIndex: number) => (
       <div key={sectionIndex} className='mb-4'>
-        {section.split('\n').map((line, lineIndex) => {
+        {section.split('\n').map((line: string, lineIndex: number) => {
           if (showChords) {
             return parseLyricsWithChords(line, transpositionSemitones);
           } else if (line.startsWith('## ')) {

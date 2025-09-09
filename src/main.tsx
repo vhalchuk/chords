@@ -7,7 +7,12 @@ import './index.css';
 import { routeTree } from './routeTree.gen';
 
 // Create a new router instance
-const router = createRouter({ routeTree });
+const basePath = import.meta.env.PUBLIC_BASE_PATH || '/';
+
+const router = createRouter({
+  routeTree,
+  basepath: basePath,
+});
 
 // Register the router instance for type safety
 declare module '@tanstack/react-router' {

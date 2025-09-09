@@ -14,6 +14,7 @@
 - **Routing**: TanStack Router with file-based routing
 - **Styling**: Tailwind CSS + Shadcn UI
 - **Icons**: Lucide React
+- **Environment**: t3-env for type-safe environment variables
 - **Quality**: ESLint + Prettier + Husky pre-commit hooks
 
 ## Project Structure
@@ -28,6 +29,7 @@ src/
 │   ├── chordParser.tsx    # Chord parsing and styling
 │   ├── chordTransposer.ts # Chord transposition utility
 │   └── utils.ts           # Tailwind class utilities
+├── env.ts                 # t3-env environment configuration
 ├── routes/
 │   ├── __root.tsx         # Root layout with header/footer
 │   ├── index.tsx          # Homepage with songs list
@@ -57,6 +59,22 @@ src/
 - **Types**: `import type { Song } from '@/types/song'`
 - **Runtime**: `import { Button } from '@/components/ui/button'`
 - **Mixed**: Separate type and runtime imports
+
+## Environment Variables
+
+- **Configuration**: Uses `t3-env` for type-safe environment variable management
+- **Client Variables**: Must be prefixed with `PUBLIC_` (e.g., `PUBLIC_BASE_PATH`)
+- **Schema**: Defined in `src/env.ts` with Zod validation
+- **Usage**: Import `env` from `@/env` to access validated variables
+
+## Deployment
+
+- **Platform**: GitHub Pages
+- **Command**: `npm run deploy`
+- **Process**: Builds with `PUBLIC_BASE_PATH=/chords/`, copies `index.html` as `404.html`, deploys to `gh-pages` branch
+- **URL**: `https://vhalchuk.github.io/chords/`
+- **SPA Routing**: Uses `404.html` fallback for client-side routing
+- **Environment**: `PUBLIC_BASE_PATH` environment variable controls the base path for both Vite and TanStack Router
 
 ## Song Data Format
 

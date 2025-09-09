@@ -91,7 +91,7 @@ export function transposeChord(chord: string, semitones: number): string {
 export function transposeLine(line: string, semitones: number): string {
   if (!line || semitones === 0) return line;
 
-  return line.replace(/\[([^\]]+)\]/g, (match, chord) => {
+  return line.replace(/\[([^\]]+)\]/g, (_, chord) => {
     const transposedChord = transposeChord(chord, semitones);
     return `[${transposedChord}]`;
   });
