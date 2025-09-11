@@ -80,10 +80,10 @@ src/
 
 ```typescript
 interface Song {
-  id: string; // Unique identifier
-  title: string; // Song title
-  artist: string; // Artist name
-  lyrics: string; // Lyrics with inline chords
+    id: string; // Unique identifier
+    title: string; // Song title
+    artist: string; // Artist name
+    lyrics: string; // Lyrics with inline chords
 }
 ```
 
@@ -97,10 +97,10 @@ interface Song {
 
 ```json
 {
-  "id": "you-are-my-sunshine",
-  "title": "You Are My Sunshine",
-  "artist": "Traditional",
-  "lyrics": "[C]You are my sunshine, my only sunshine\n[C]You make me happy when [G]skies are [C]gray..."
+    "id": "you-are-my-sunshine",
+    "title": "You Are My Sunshine",
+    "artist": "Traditional",
+    "lyrics": "[C]You are my sunshine, my only sunshine\n[C]You make me happy when [G]skies are [C]gray..."
 }
 ```
 
