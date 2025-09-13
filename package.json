@@ -12,7 +12,7 @@
         "format:check": "prettier --check .",
         "preview": "vite preview",
         "prepare": "husky",
-        "deploy": "PUBLIC_BASE_PATH=/chords/ npm run build && cp dist/index.html dist/404.html && gh-pages -d dist"
+        "deploy": "PUBLIC_BASE_PATH=/chords/ pnpm run build && cp dist/index.html dist/404.html && gh-pages -d dist"
     },
     "dependencies": {
         "@tailwindcss/vite": "^4.1.13",
@@ -60,5 +60,6 @@
         "*.{json,md,css}": [
             "prettier --write"
         ]
-    }
+    },
+    "packageManager": "pnpm@10.16.0+sha512.8066e7b034217b700a9a4dbb3a005061d641ba130a89915213a10b3ca4919c19c037bec8066afdc559b89635fdb806b16ea673f2468fbb28aabfa13c53e3f769"
 }
