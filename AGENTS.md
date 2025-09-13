@@ -49,10 +49,10 @@ src/
 
 **MANDATORY**: AI agents MUST run before committing:
 
-1. `npm run lint:fix` - Fix ESLint and Prettier issues
-2. `npm run format` - Ensure consistent formatting
-3. `npm run lint` - Verify no errors
-4. `npm run format:check` - Verify formatting consistency
+1. `pnpm run lint:fix` - Fix ESLint and Prettier issues
+2. `pnpm run format` - Ensure consistent formatting
+3. `pnpm run lint` - Verify no errors
+4. `pnpm run format:check` - Verify formatting consistency
 
 ## TypeScript Import Guidelines
 
@@ -70,7 +70,7 @@ src/
 ## Deployment
 
 - **Platform**: GitHub Pages
-- **Command**: `npm run deploy`
+- **Command**: `pnpm run deploy`
 - **Process**: Builds with `PUBLIC_BASE_PATH=/chords/`, copies `index.html` as `404.html`, deploys to `gh-pages` branch
 - **URL**: `https://vhalchuk.github.io/chords/`
 - **SPA Routing**: Uses `404.html` fallback for client-side routing
